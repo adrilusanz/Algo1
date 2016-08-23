@@ -1,0 +1,271 @@
+#include <iostream>
+#include "conio.h"
+
+int contar(int n);
+int suma(int n);
+int verficarprimo ( int n);
+int contarprimo (int n);
+int invertir(int n);
+int acumulardos(int n,int m);
+int anotar1();
+int anotar2();
+int ordennumero(int n);
+int sumarnumeroordenadoizqder(int n);
+
+using namespace std;
+
+void main()
+{
+	int a,e,s,op,pr,in,ac,b,vf,total;
+	
+cout<<"1. Sumar elementos de un numero"<<endl;
+cout<<"2. Contar los elementos del numero"<<endl;
+cout<<"3. Invertir numero"<<endl;
+cout<<"4. Contar numeros primos"<<endl;
+cout<<"5. Acumular dos"<<endl;
+cout<<"6. Verificar orden del numero"<<endl;
+cout<<"7. Sumar los numeros ordenados ascedentemente de izquierda a derecha"<<endl;
+cout<<"0. Salir"<<endl;
+cin>>op;
+
+switch(op){
+case 1: {
+
+	a=anotar1();
+	s=suma(a);
+	cout<<endl;
+	cout<<"la suma de los elementos del numero es: "<<s;
+	break;}
+case 2 :{
+	
+	a=anotar1();
+	e=contar(a);
+	cout<<endl;
+	cout<<"el numero de elementos es: "<<e;
+	break;}
+case 3: {
+	
+	a=anotar1();
+	in=invertir(a);
+	cout<<"el numero invertido es: "<<in;
+
+	break;}
+case 4:{
+	a=anotar1();
+	pr=contarprimo(a);
+	cout<<"la suma de los primos es: "<<pr;
+	break;
+	   }
+case 5: {
+		a=anotar1();
+		b=anotar2();
+	ac=acumulardos(a,b);
+	cout<<"El nuevo numero es: "<<ac;
+	break;
+		}
+case 6:{
+	a=anotar1();
+	vf=ordennumero(a);
+	if(vf==0)
+	{cout<<"El numero esta orden";}
+	else
+	{cout<<"El numero no esta en orden";}
+
+	break;
+	   }
+case 7: {
+	a=anotar1();
+	total=sumarnumeroordenadoizqder(a);
+	cout<<"La suma es: "<<total;
+	break;
+		}
+case 0: {
+	cout<<"salir"<<endl;
+	break;}
+default : {
+	cout<<"valor invalido"<<endl;
+	break;}
+}
+getch();
+}
+int contar(int n)
+{
+	int u,c=0;
+	for(int i=1;i<=n;i=i*10)
+	{
+		u=(n/i)%10;
+		c=c+1;
+	}
+	return c;
+}
+int suma( int n)
+{
+	int s=0,u;
+	for(int i=1;i<=n;i=i*10)
+	{
+		u=(n/i)%10;
+		s=s+u;
+	}
+	return s;
+}
+int invertir(int n)
+{		int u,c,d=0;
+
+	c=contar( n);
+	
+	for(int i=1;i<=n;i=i*10)
+	{
+		u=(n/i)%10;
+		
+		d=d+(u*powf(10,c-1));
+		c=c-1;
+		
+	}
+
+	
+	return d;
+}
+int verficarprimo ( int n)
+{	int noes;
+	
+		for(int i=2;i<=n-1;i++) 
+		{ 
+		if(n%i==0)
+		{
+		 noes=1;
+		} 
+
+		}
+		
+
+ return noes;
+}
+int contarprimo( int n)
+{
+	int u,primo=0,np;
+	for(int i=1;i<=n;i=i*10)
+	{
+		u=(n/i)%10;
+		np=verficarprimo (u);
+		
+		if(np!=1) 
+		{ 
+		primo=primo+u; 
+		} 
+		
+	}
+	return primo;
+}
+int acumulardos(int n, int m)
+{
+	int c=0,w,u,q;
+	for(int i=1;i<=m;i=i*10)
+	{
+		u=(m/i)%10;
+		c=c+1;
+	}
+		
+	w=n*powf(10,c);
+	q=w+m;
+	return q;
+}
+int anotar1()
+{	int l;
+	do{
+		cout<<"ingrese un valor natural: ";
+		cin>>l;
+		if(l>0)
+		{
+		}
+		else
+		{
+			cout<<endl;
+			do{
+				cout<<"Error... Debes ingresar un valor posistivo: ";
+				cin>>l;}while(l<0);
+
+		}
+
+	}while(l<0);
+return l;
+}
+int anotar2()
+{	int o;
+	do{
+		cout<<"ingrese segundo valor natural: ";
+		cin>>o;
+		if(o>0)
+		{
+		}
+		else
+		{
+			cout<<endl;
+			do{
+				cout<<"Error... Debes ingresar un valor posistivo: ";
+				cin>>o;}while(o<0);
+
+		}
+
+	}while(o<0);
+return o;
+}
+int ordennumero(int n)
+{	int u,nuevo=0,verificar=0,escoger,num,d;
+	cout<<"Ordenar de manera ascedente"<<endl;
+	cout<<"De izquierda a derecha escriba 1 y de derecha a izquierda escriba 2: ";
+	cin>>escoger;
+	num=n;
+	if(escoger==1){
+		d=invertir(num);
+		for(int i=1;i<=d;i=i*10)
+	{
+		u=(d/i)%10;
+		if(nuevo<u)
+			{
+				nuevo=u;
+			}
+		else
+		{verificar=verificar+1;
+				}
+
+			}
+	}
+	else{
+		for(int i=1;i<=n;i=i*10)
+	{
+		u=(n/i)%10;
+		
+		if(nuevo<u)
+			{
+				nuevo=u;
+			}
+		else
+		{verificar=verificar+1;
+			}
+
+		}
+
+	}
+return verificar;
+}
+int sumarnumeroordenadoizqder(int n)
+{ int d,u,num,sumas=0,nuevo=0;
+	num=n;
+	d=invertir(num);
+	
+		for(int i=1;i<=d;i=i*10)
+	{
+		u=(d/i)%10;
+		if(nuevo<u)
+			{
+				sumas=sumas+u;
+				nuevo=u;
+			}
+		else
+		{
+
+		}
+
+	}
+return sumas;
+}
