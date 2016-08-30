@@ -1,0 +1,131 @@
+#include <iostream>
+#include "conio.h"
+#include "stdlib.h"
+#define max 50
+
+
+
+using namespace std;
+
+void cargar (int vec[], int n);
+void mostrar (int vec[], int n);
+void mosvec_noprimos(int vec[], int n);
+int verificar_primo(int w);
+int eliminar_primo( int vec[], int n,int vect[]);
+void secuencia_saltada_primos(int vec[]);
+int obtPrimo (int n);
+void main()
+{
+	int vector[max],a, vector2[max],numvect2;
+	cout<<"Ingrese cantidad de elementos que desea: ";
+	cin>>a;
+	//cargar(vector,a);
+	secuencia_saltada_primos(vector);
+	mostrar(vector,a);
+	numvect2=eliminar_primo(vector,a,vector2);
+	mosvec_noprimos(vector2,numvect2);
+
+
+	getch();
+}
+void cargar (int vec[], int n){
+	cout<<endl;
+	for(int i=0;i<n;i++)
+	{	
+		
+		cout<<"Ingrese el valor: ";
+		cin>>vec[i];
+
+	}
+	system("cls");
+
+}
+void mostrar (int vec[], int n){
+	cout<<endl;
+	for(int i=0;i<n;i++){
+		
+		cout<<"El elemento["<<i<<"] es: "<<vec[i]<<endl;
+
+
+		
+	}
+
+	getch();
+}
+int verificar_primo(int w)
+{int noprimo=0;
+	
+	for(int k=2;k<=w-1;k++)
+		{
+			if(w%k==0)
+			{
+				noprimo=noprimo+1;
+			}
+			else
+			{
+				
+			}
+
+	}
+return noprimo;
+}
+int eliminar_primo( int vec[], int n, int vect[]){
+int q,k=0,ch;
+	for(int i=0;i<n;i++){
+		q=vec[i];
+		ch=verificar_primo(q);
+		if(ch!=0)
+		{	vect[k]=vec[i];
+		k=k+1;
+		}
+
+
+
+	}
+
+	return k;
+}
+void mosvec_noprimos(int vec[], int n){
+		cout<<endl;
+		cout<<"El nuevo vector es: "<<endl;
+	for(int i=0;i<n;i++){
+		
+		cout<<"El elemento["<<i<<"] es: "<<vec[i]<<endl;
+
+
+		
+	}
+
+	getch();
+}
+
+int obtPrimo (int n)
+{
+	int c=0, cp=0;
+	while (cp < n)
+	{
+		c++;
+	}
+		if (verificar_primo (n) == true)
+		{
+			cp++;
+		}
+	
+	return c;
+}
+
+void secuencia_saltada_primos(int vec[], int n)
+{
+	int i,s, iS=0, iB=n-1, k=0;
+	for(i=0; i<n;i++)
+	{
+		if( s==0)
+		{
+			vec[iS++] = obtPrimo(i+1);
+			s = 1;
+		}else{
+			vec[iB--] = obtPrimo(i+1);
+			s = 0;
+		}
+	}
+}
