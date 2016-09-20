@@ -1,0 +1,47 @@
+#include <iostream>
+#include "conio.h"
+#include "string.h"
+
+struct RegSubvec
+{
+	int Subvec[20];
+};
+void cargar (RegSubvec[], int n);
+void mostrar (RegSubvec[], int n);
+using namespace std;
+
+void main()
+{	int n;
+	RegSubvec vec[20];
+	cout<<"    Ingrese el numero de elementos:  ";
+	cin>>n;
+	cargar (vec,n);
+	mostrar (vec,n);
+
+	getch();
+}
+
+void cargar (RegSubvec vec[], int n)
+{
+	for ( int i=0; i<n; i++)
+	{	
+		cout<< "   Vector " <<i<< endl;
+		for ( int j=0; j<n; j++)
+		{
+			cout<< "   Introducir los elementos:  ";
+			cin>> vec[i] .Subvec[j];
+		}
+	}
+}
+
+void mostrar (RegSubvec vec[], int n)
+{
+	for ( int i=0; i<n; i++)
+	{
+		for (int j=0; j<n; j++)
+		{
+			cout<<"          "<< vec[i] . Subvec[j]<< "  ";
+		}
+		cout<<endl;
+	}
+}
