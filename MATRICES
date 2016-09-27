@@ -1,0 +1,90 @@
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+#define FIL 20
+#define COL 20
+
+void cargar (int mat[FIL][COL],int n, int m);
+void mostrar (int mat[FIL][COL],int n, int m);
+int mayor (int mat[FIL][COL],int n, int m);
+void ordenar (int mat[FIL][COL],int n, int m);
+
+void main ()
+{
+	int nroFil, nroCol,matriz[FIL][COL];
+	cout<<"  Ingrese numero de filas:   ";
+	cin>> nroFil;
+	cout<<"  Ingrese numero de columnas:    ";
+	cin>> nroCol;
+	cargar (matriz,nroFil,nroCol);
+	mostrar (matriz,nroFil,nroCol);
+	cout<<endl;
+	ordenar (matriz,nroFil,nroCol);
+	mostrar (matriz,nroFil,nroCol);
+	cout<<"   El elemento mayor es ----> " << mayor (matriz,nroFil,nroCol);
+	getch();
+}
+
+void cargar (int mat[FIL][COL],int n, int m)
+{
+	for ( int i=0; i<n; i++)
+	{
+		for ( int j=0; j<m; j++)
+		{
+			cout<< "   Ingrese el dato Mat["<<i<<"]["<<j<<"]  : ";
+			cin>> mat[i][j];
+		}
+	}
+}
+
+void mostrar (int mat[FIL][COL],int n, int m)
+	{
+		cout<< "La Matriz es : "<<endl;
+	for ( int i=0; i<n; i++)
+	{
+		for ( int j=0; j<m; j++)
+		{
+			cout<<"  "<<mat[i][j]<< " ";
+		}
+		cout<<endl;
+	}
+}
+
+int mayor (int mat[FIL][COL],int n, int m)
+{ 
+	int may =  0;
+	for ( int i=0; i<n; i++)
+	{
+		for (int j=0; j<m; j++)
+		{
+			if (mat[i][j] > may)
+			{
+				may = mat [i][j];
+			}
+		}
+	}
+	return (may);
+}
+
+void ordenar (int mat[FIL][COL],int n, int m)
+{ 
+	int aux;
+	for ( int i=0; i<n; i++)
+	{
+		for (int j=0; j<m; j++)
+		{
+			for (int s=j+1; s<m; s++)
+			{
+				if (mat[i][j]>mat[i][s])
+				{
+					aux         = mat[i][j];
+					mat[i][j]   = mat[i][s];
+					mat[i][s]   = aux;
+				}
+			}
+		}
+	}
+}
+
+
