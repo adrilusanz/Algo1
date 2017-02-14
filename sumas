@@ -1,0 +1,78 @@
+
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+
+void main ()
+{
+	int a,b,x=0;
+
+
+	
+	cout<<   "NUMERO MAYOR" <<endl;
+	cout<< "Introducir dos numeros" << endl;
+	cout << "  "; 
+	cin >> a;
+	cout << "  ";
+	cin >> b;
+
+	if (a>b){
+		cout << " El numero mayor es:  " << a << endl;
+	}else{
+		if (a<b){
+			cout << " El numero mayor es:  " << b << endl;
+		}else{
+			cout << " Los numeros son iguales: " << endl;
+		}
+	}
+	
+	cout<< "MULTIPLICACION DE NUMEROS" <<endl;
+	cout<< "Introducir dos numeros" << endl;
+	cout << "  "; 
+	cin >> a;
+	cout << "  ";
+	cin >> b;
+
+	for (i=0; i<b ;i++){
+		x=x+a;
+	}
+
+
+	cout << "La multiplicacion es:  " << x << endl;
+	cout<< "DIVISION DE NUMEROS" <<endl;
+	cout<< "Introducir dos numeros" << endl;
+	cout << "  "; 
+	cin >> a;
+	cout << "  ";
+	cin >> b;
+
+	if ( b==0 ){
+		cout << " B no puede ser 0"<< endl;
+		cin >> b;
+	}else{
+		if ( a==0 ){
+			cout << " La division sale 0" <<endl;
+		}else{
+			if (a%b != 0){
+				cout << " B no es multiplo de A" <<endl;
+				cin >> b;
+			}
+		}
+	}
+	while ( a > 0){
+		a = x - b;
+		x++;
+	}
+	cout << "La divion es:  " << x ;
+
+
+	cout << "Introducir un numero";
+	cin >> a;
+	for ( i=1; i<=a; i++){
+		s = s *i;
+		cout << s;
+	}
+	 cout << " El factorial es: " << s ;
+	getch();
+}
