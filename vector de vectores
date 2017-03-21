@@ -1,0 +1,95 @@
+#include "conio.h"
+#include <iostream>
+
+
+using namespace std;
+
+struct tvector{
+	int svec [20];
+};
+
+void cargar (tvector vec[], int n){
+	int i,j;
+	for (i=0; i<n; i++){
+		for (j=0; j<n; j++){
+			cout <<"vec["<<i<<"].svec["<<j<<"] : ";
+			cin >> vec[i].svec[j];
+		}
+	}
+}
+
+void mostrar (tvector vec[], int n){
+	int i,j;
+	cout<<"\n\tEl vector de vectores es:    \n\n";
+	cout<<" |";
+	for (i=0; i<n; i++){
+		for (j=0; j<n; j++){
+			cout<<"\t"<<vec[i].svec[j]<< "   ";
+		}
+		cout<< "   |   ";
+	}
+}
+
+void invertir (tvector vec[], int n){
+	int i,j,aux;
+	for (i=0; i<n; i++){
+		for (j=0; j<n/2; j++){
+			aux = vec[i].svec[j];
+			vec[i].svec[j] = vec[i].svec[n-1-j];
+			vec[i].svec[n-1-j] = aux;
+		}
+	}
+}
+
+void invertirtodo (tvector vec[], int n){
+	int i,j,aux;
+	for (i=0; i<n/2; i++){
+		for (j=0; j<n; j++){
+			aux = vec[i].svec[j];
+			vec[i].svec[j] = vec[n-1-i].svec[j];
+			vec[n-1-i].svec[j] = aux;
+		}
+	}
+}
+
+void matriz_cargada (tvector vec[], int n){
+	int k=1,i,j;
+	for (i=0; i<n; i++){
+		vec[i].svec[i] = k++;
+	}
+	for (i=0; i<n; i++){
+		for (j=0; j<n; j++){
+			if (i<j){
+				vec[i].svec[j] = k++;
+			}
+		}
+	}
+	for (i=0; i<n; i++){
+		for (j=0; j<n; j++){
+			if (i>j){
+				vec[i].svec[j] = k++;
+			}
+		}
+	}
+}
+
+
+
+
+
+void main (){
+	int n;
+	tvector vec[20];
+	cout<< "Cantidad de elementos:   ";
+	cin>> n;
+	//cargar (vec,n);
+	//mostrar (vec,n);
+	//invertirtodo(vec,n);
+	//invertir (vec,n);
+	//cout<< endl;
+	//cout<< "\n\nVector invertido:  \n\n"<<endl;
+	//mostrar (vec,n);
+	matriz_cargada (vec,n);
+	mostrar (vec,n);
+	getch();
+}
