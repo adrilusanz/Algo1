@@ -1,0 +1,90 @@
+#include <iostream>
+#include "conio.h"
+#include <string.h>
+
+using namespace std;
+
+int contarCantidadDeCAracteres (char cad[]){
+	int c=0;
+	while(cad[c]  != '\0'){
+		c++;
+	}
+	return (c);
+}
+
+bool verifVocal (char car){
+	if(car=='a' || car=='e' || car=='i' || car=='o' || car=='u' || car=='A' || car=='E' || car=='I' || car=='O' || car=='U')
+		return(true);
+	else
+		return(false);
+}
+
+int conteoVocales (char cad[]){
+	int c = 0,i,n=strlen(cad);
+	for(i=0;i<n;i++){
+		if(verifVocal(cad[i]) == true){
+			c++;
+		}
+	}
+	return (c);
+}
+
+void eliminarVocal (char cad[]){
+	int c = 0,i,j,n=strlen(cad);
+	for(i=0;i<n;i++){
+		if(verifVocal(cad[i]) == true){
+			for(j=i;j<n-1;j++){
+				cad[j] = cad [j+1];
+			}
+				n--;
+				i--;	
+		}
+	}
+	cad[n] = '\0';
+}
+
+void invertir (char cad[]){
+	int i,n=strlen(cad);
+	char aux;
+	for(i=0;i<n/2;i++){
+		aux = cad[i];
+		cad[i] = cad[n-1-i];
+		cad[n-1-i] = aux;
+	}
+}
+
+bool verifCapicua (char cad[]){
+	bool k = false;
+	char aux[100];
+	strcpy(aux,cad);
+	invertir(aux);
+	if(strcmp(cad,aux) == 0){
+		k = true;
+	}
+	return k;
+}
+
+void main (){
+	char cad[100];
+	cout<<"Introducir una cadena de caracteres :  ";
+	gets(cad);
+	cout<<endl;
+	cout<<"Tamanho de la cadena es ------>  "<<contarCantidadDeCAracteres(cad)<<endl;
+	cout<<endl;
+	cout<<"La cantidad de vocales es ------>  "<<conteoVocales(cad)<<endl;
+	if (verifCapicua(cad) == true){
+		cout<<"\nLa cadena ---> "<< cad << " <--- si es capicua"<<endl;
+	}else{
+		cout<<"\nLa cadena ---> "<< cad <<" <--- no es capicua"<<endl;
+	}
+	cout<<endl;
+	invertir(cad);
+	cout<<"La cadena invertida es ------>  "<< cad<<endl;
+	cout<<endl;
+	invertir(cad);
+	eliminarVocal(cad);
+	cout<<"Eliminando vocales ------>  "<< cad<<endl;
+	cout<<endl;
+	
+	getch();
+}
