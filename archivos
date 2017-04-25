@@ -42,11 +42,52 @@ void adicionarRegistro (){
 	fclose(ptr);
 	}
 void mostrarArchivos (){
+	FILE *ptr;
+	regAmigo reg;
+	ptr=fopen("amigos.dat","rb");
+	if(ptr!= NULL){
+		cout<<endl;
+			cout<<"---------------------------------------------------"<<endl;
+			cout<<"\tNOMBRE               |EDAD    |SEXO   "<<endl;
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr)== false){
+			cout<<endl;
+			cout<<"\t"<<reg.nombre<<" "<<reg.edad<<"  "<<reg.sexo;
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		fclose(ptr);
+	}else{
+		cout<<"no existe";
+	}
+}
 
 	
-	void main (){
-		//crearArchivo("amigos.dat");
+void main (){
+	//crearArchivo("amigos.dat");
+	int op;
+	cout<<"1. Adicionar"<<endl;
+	cout<<"2. Mostrar "<<endl;
+	cout<<"0. Salir"<<endl;
+	cin>>op;
+
+	switch(op){
+	case 1:{
 		adicionarRegistro ();
+		   break;
+		   }
+	case 2:{
 		mostrarArchivos ();
-		getch();
+		   break;
+		   }
+	case 0:{
+		   cout<<"salir"<<endl;
+		   break;
+		   }
+	default:{
+			cout<<"Valor invalido"<<endl;
+			break;
+			}
 	}
+
+		getch();
+}
