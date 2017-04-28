@@ -11,6 +11,7 @@ struct regAmigo{
 	char estado;
 };
 
+
 void crearArchivo(char nomArch[]){
 	FILE *ptr;
 	ptr= fopen(nomArch,"wb");
@@ -20,18 +21,22 @@ void adicionarRegistro (){
 	FILE *ptr;
 	regAmigo reg;
 
-	cout<<"Ingrese nombre:  ";
+	cout<<"\tIngrese nombre:  ";
 	do{
 		gets(reg.nombre);
 	}while(strlen(reg.nombre) == 0);
 
 	do{
-	cout<<"Ingrese edad:   ";
+	cout<<"\tIngrese edad:   ";
 	cin>> reg.edad;
+	if (reg.edad < 1 || reg.edad > 100){
+		cout<< "\tEdad Invalida, ingrese edad correcta"<<endl;
+		cout<<endl;
+	}
 	}while(reg.edad < 1 || reg.edad > 100);
 	
 	do{
-	cout<<"Ingrese Sexo (F o M):   ";
+	cout<<"\tIngrese Sexo (F o M):   ";
 	cin>> reg.sexo;
 	}while(reg.sexo != 'F' && reg.sexo != 'M');
 
@@ -41,20 +46,34 @@ void adicionarRegistro (){
 	fwrite(&reg, sizeof(reg),1,ptr);
 	fclose(ptr);
 	}
+int contador (int n){
+	int c=0;while (n>0){n = n/10;c++;}return (c);}
 void mostrarArchivos (){
 	FILE *ptr;
 	regAmigo reg;
+	int idCliente=3000,q,m,n,s;
 	ptr=fopen("amigos.dat","rb");
 	if(ptr!= NULL){
 		cout<<endl;
 			cout<<"---------------------------------------------------"<<endl;
-			cout<<"\tNOMBRE               |EDAD    |SEXO   "<<endl;
+			cout<<" |   Id   | NOMBRE                        |  EDAD   | SEXO | "<<endl;
 		fread(&reg,sizeof(reg),1,ptr);
 		while(feof(ptr)== false){
-			cout<<endl;
-			cout<<"\t"<<reg.nombre<<" "<<reg.edad<<"  "<<reg.sexo;
+			idCliente++;
+				cout<<" |  "<<idCliente<<"  |"<<reg.nombre;
+				q=strlen(reg.nombre);
+				m=30-q;
+				for(int i=0;i<m;i++){
+					cout<<" ";}
+				cout<<" | "<<reg.edad;
+				s=contador(reg.edad);
+				n=8-s;
+				for(int j=0;j<n;j++){
+				cout<<" ";}
+				cout<<"|  "<<reg.sexo<<"   |"<<endl;
 			fread(&reg,sizeof(reg),1,ptr);
 		}
+cout<<"---------------------------------------------------"<<endl;
 		fclose(ptr);
 	}else{
 		cout<<"no existe";
