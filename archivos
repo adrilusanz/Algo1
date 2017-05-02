@@ -27,17 +27,17 @@ void adicionarRegistro (){
 	}while(strlen(reg.nombre) == 0);
 
 	do{
-	cout<<"\tIngrese edad:   ";
-	cin>> reg.edad;
-	if (reg.edad < 1 || reg.edad > 100){
-		cout<< "\tEdad Invalida, ingrese edad correcta"<<endl;
-		cout<<endl;
-	}
+		cout<<"\tIngrese edad:   ";
+		cin>> reg.edad;
+		if (reg.edad < 1 || reg.edad > 100){
+			cout<< "\tEdad Invalida, ingrese edad correcta"<<endl;
+			cout<<endl;
+		}
 	}while(reg.edad < 1 || reg.edad > 100);
-	
+
 	do{
-	cout<<"\tIngrese Sexo (F o M):   ";
-	cin>> reg.sexo;
+		cout<<"\tIngrese Sexo (F o M):   ";
+		cin>> reg.sexo;
 	}while(reg.sexo != 'F' && reg.sexo != 'M');
 
 	reg.estado = 'A';
@@ -45,7 +45,7 @@ void adicionarRegistro (){
 	ptr = fopen("amigos.dat","ab");
 	fwrite(&reg, sizeof(reg),1,ptr);
 	fclose(ptr);
-	}
+}
 int contador (int n){
 	int c=0;while (n>0){n = n/10;c++;}return (c);}
 void mostrarArchivos (){
@@ -55,58 +55,158 @@ void mostrarArchivos (){
 	ptr=fopen("amigos.dat","rb");
 	if(ptr!= NULL){
 		cout<<endl;
-			cout<<"---------------------------------------------------"<<endl;
-			cout<<" |   Id   | NOMBRE                        |  EDAD   | SEXO | "<<endl;
+		cout<<"------------------------------------------------------------"<<endl;
+		cout<<" |   Id   | NOMBRE                        |   EDAD  | SEXO | "<<endl;
 		fread(&reg,sizeof(reg),1,ptr);
 		while(feof(ptr)== false){
 			idCliente++;
-				cout<<" |  "<<idCliente<<"  |"<<reg.nombre;
-				q=strlen(reg.nombre);
-				m=30-q;
-				for(int i=0;i<m;i++){
-					cout<<" ";}
-				cout<<" | "<<reg.edad;
-				s=contador(reg.edad);
-				n=8-s;
-				for(int j=0;j<n;j++){
+			cout<<" |  "<<idCliente<<"  |"<<reg.nombre;
+			q=strlen(reg.nombre);
+			m=30-q;
+			for(int i=0;i<m;i++){
 				cout<<" ";}
-				cout<<"|  "<<reg.sexo<<"   |"<<endl;
+			cout<<" | "<<reg.edad;
+			s=contador(reg.edad);
+			n=8-s;
+			for(int j=0;j<n;j++){
+				cout<<" ";}
+			cout<<"|   "<<reg.sexo<<"  |"<<endl;
 			fread(&reg,sizeof(reg),1,ptr);
 		}
-cout<<"---------------------------------------------------"<<endl;
+		cout<<"-------------------------------------------------------------------------"<<endl;
 		fclose(ptr);
 	}else{
 		cout<<"no existe";
 	}
 }
-
+void mostrarPromedios (){
+	FILE *ptr;
+	regAmigo reg;
+	int cantidadM=0, cantidadH=0,edadH, edadM;
+	ptr=fopen("amigos.dat","rb");
+	if(ptr!= NULL){
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr) == false){
+			if (reg.estado == 'A'){
+				if (reg.sexo == 'M'){
+					edadH = edadH + reg.edad;
+					cantidadH++;
+				}else{
+					edadM = edadM + reg.edad;
+					cantidadM++;
+				}
+			}
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		fclose(ptr);
+		if (cantidadH > 0){
+			cout<<"Promedio de edad de hombres es de:   "<<edadH/cantidadH<<endl;
+		}
+		if (cantidadM > 0){
+			cout<<"Promedio de edad de mujeres es de:   "<<edadM/cantidadM<<endl;
+		}
+		if ((cantidadH+cantidadM) > 0){
+			cout<<" El promedio total es de:    "<<(edadM+edadH)/(cantidadM+cantidadH)<<endl;
+		}
+	}else{
+		cout<<"no existe";
+	}
+}
+void mostrarEdadMayor (){
+	FILE *ptr;
+	regAmigo reg;
+	int edadMay =0;
+	ptr=fopen("amigos.dat","rb");
+	if(ptr!= NULL){
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr) == false){
+			if (reg.estado == 'A'){
+				if (reg.edad > edadMay){
+					edadMay = reg.edad;
+				}
+			}
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		fclose(ptr);
+		cout<<"\tLa edad mayor es:  "<< edadMay<<endl;
+		}else{
+		cout<<"no existe";
+	}
+}
+void mostrarNombreMayor (){
+	FILE *ptr;
+	regAmigo reg;
+	int edadMay =0;
+	ptr=fopen("amigos.dat","rb");
+	if(ptr!= NULL){
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr) == false){
+			if ((reg.estado == 'A') && (reg.edad > edadMay)){
+				edadMay = reg.edad;
+			}
+		fread(&reg,sizeof(reg),1,ptr);
+	}
+	cout<< "\tLa edad "<< edadMay << "  pertenece a: "<<endl;
+	rewind(ptr);
+	fread(&reg,sizeof(reg),1,ptr);
+	while(feof(ptr) == false){
+		if ((reg.estado == 'A') && (reg.edad == edadMay)){
+				cout<<endl<<"\t- "<<reg.nombre<<".";
+		}
 	
+	fread(&reg,sizeof(reg),1,ptr);
+	}
+fclose(ptr);
+		}else{
+			cout<<"no existe";
+	}
+}
+
+
+
 void main (){
 	//crearArchivo("amigos.dat");
 	int op;
 	cout<<"1. Adicionar"<<endl;
 	cout<<"2. Mostrar "<<endl;
+	cout<<"3. Promedios de edades (Hombres, Mujeres y ambos)"<<endl;
+	cout<<"4. Mostrar la edad mayor"<<endl;
+	cout<<"5. QUien tiene la mayor edad?"<<endl;
 	cout<<"0. Salir"<<endl;
+	cout<<"\t Opcion: ";
 	cin>>op;
+	cout<<endl;
 
 	switch(op){
 	case 1:{
 		adicionarRegistro ();
-		   break;
+		break;
 		   }
 	case 2:{
 		mostrarArchivos ();
-		   break;
+		break;
+		   }
+	case 3:{
+		mostrarPromedios ();
+		break;
+		   }
+	case 4:{
+		mostrarEdadMayor ();
+		break;
+		   }
+	case 5:{
+		mostrarNombreMayor ();
+		break;
 		   }
 	case 0:{
-		   cout<<"salir"<<endl;
-		   break;
+		cout<<"salir"<<endl;
+		break;
 		   }
 	default:{
-			cout<<"Valor invalido"<<endl;
-			break;
+		cout<<"Valor invalido"<<endl;
+		break;
 			}
 	}
 
-		getch();
+	getch();
 }
