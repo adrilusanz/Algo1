@@ -8,6 +8,7 @@ struct regAmigo{
 	char nombre[30];
 	int  edad;
 	char sexo;
+	char categoria;
 	char estado;
 };
 
@@ -210,3 +211,50 @@ void main (){
 
 	getch();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void categorias (){
+	FILE *ptr;
+	regAmigo reg;
+	ptr=fopen("amigos.dat","rb");
+	if(ptr!= NULL){
+		fread(&reg,sizeof(reg),1,ptr);
+		while(feof(ptr) == false){
+			if (reg.estado == 'A'){
+				if ((reg.edad > 1) && (reg.edad < 12 )){
+					cout<<"\t "<<reg.nombre<<": es nino"<<endl;
+					reg.categoria == "nino";
+				}
+				if ((reg.edad > 12) && (reg.edad < 15 )){
+					cout<<"\t "<<reg.nombre<<": es adolecente"<<endl;
+				}
+				if ((reg.edad > 16) && (reg.edad < 21 )){
+					cout<<"\t "<<reg.nombre<<": es juvenil"<<endl;
+				}
+				if (reg.edad > 21){
+					cout<<"\t "<<reg.nombre<<": es adulto"<<endl;
+				}
+			}
+			fread(&reg,sizeof(reg),1,ptr);
+		}
+		fclose(ptr);
+		}else{
+		cout<<"no existe";
+	}
+}
+
+
+
