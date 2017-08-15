@@ -1,0 +1,99 @@
+
+
+#include <conio.h>
+#include <iostream>
+
+using namespace std;
+
+int numero_digitos (int a) {
+	int b;
+	
+	while (a>0){
+		a = a/10;
+		b++;
+	}
+	return(b);
+}
+int suma_digitos (int a){
+	int b = 0;
+	while (a>0){
+		b = b + (a%10);
+		a = a/10;
+	}
+	return(b);
+}
+int suma_impares (int a){
+	int b = 0,c;
+	while (a>0){
+		c = a%10;
+		if (c%2!=0){
+		b = b + c;
+		}
+		a = a/10;
+	}
+	return(b);
+}
+int inverso (int a){
+	int b=0,c;
+	while(a>0){
+		c = (a%10);
+		b = b*10 + c;
+		a = a/10;
+	}
+	return (b);
+}
+ void main(){
+	 int n,c,d,e,f,o;
+	 cout<< "\n Introducir un numero: ";
+	 cin>> n;
+	 cout<<endl;
+ 	do{
+	cout<<"\n -----------------------------------------"<<endl;
+	cout<<"\n NUMERO: "<<n;
+	cout<<"\n -----------------------------------------"<<endl;
+	cout<<"\n MENU"<<endl;
+	cout<<"\n 1. Cantidad de digitos del numero"<<endl;
+	cout<<"\n 2. Suma de todos los digitos"<< endl;
+	cout<<"\n 3. Suma de digitos impares"<< endl;
+	cout<<"\n 4. Invertir numero"<< endl;
+
+	cout<<"\n 0. Salir" << endl;
+	cout<<"\n opcion:  ";
+	cin>> o;
+	switch (o){
+	case 1:
+		{
+			c=numero_digitos(n);
+			cout<< "\n El numero de digitos es: "<< c;
+			break;
+		}
+	case 2:
+		{
+			d=suma_digitos(n);
+			cout<< "\n La suma de sus digitos es: "<<d;
+			break;
+		}
+	case 3:
+		{
+			e=suma_impares(n);
+			cout<< "\n La suma de sus digitos impares es: "<<e;
+			break;
+		}
+	case 4:
+		{
+			f=inverso(n);
+			cout<< "\n Su numero invertido es: "<<f;
+			break;
+		}
+	
+	case 0:
+		{
+			cout<<"\n Gracias por participar";
+			break;	
+		}
+	default: cout<< "\n opcion no valida" << endl;break;
+	}
+} while (o!=0);
+
+getch ();
+}
