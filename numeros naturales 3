@@ -2,6 +2,9 @@
 
 #include <conio.h>
 #include <iostream>
+#include <math.h>
+#include<stdlib.h>
+
 
 using namespace std;
 
@@ -42,20 +45,50 @@ int inverso (int a){
 	}
 	return (b);
 }
+int concatenar (int a, int b){
+	return (a*powf(10,numero_digitos (b))+b);
+}
+
+bool primo (int n){
+	int i;
+	bool k=true;
+	for (i=2;i<=(n-1);i++){
+		if (n%i==0){
+			k=false;
+		}
+	}
+	return(k);
+}
+int obtPrimo (int n){
+	int a=0,b=0;
+	while (b<n){
+		a++;
+		if (primo(a)==true){
+			b++;
+		}
+	}
+	return (a);
+}
+
  void main(){
-	 int n,c,d,e,f,o;
+	 int n,c,d,e,f,g,h,o;
 	 cout<< "\n Introducir un numero: ";
 	 cin>> n;
 	 cout<<endl;
+	 system("cls");
  	do{
 	cout<<"\n -----------------------------------------"<<endl;
-	cout<<"\n NUMERO: "<<n;
+	cout<<"\t NUMERO: "<<n;
 	cout<<"\n -----------------------------------------"<<endl;
 	cout<<"\n MENU"<<endl;
 	cout<<"\n 1. Cantidad de digitos del numero"<<endl;
 	cout<<"\n 2. Suma de todos los digitos"<< endl;
 	cout<<"\n 3. Suma de digitos impares"<< endl;
 	cout<<"\n 4. Invertir numero"<< endl;
+	cout<<"\n 5. Concatenar dos numeros"<< endl;
+	cout<<"\n 6. Verficar si el numero es primo"<< endl;
+	cout<<"\n 7. Obtener nesimo numero primo"<<endl;
+
 
 	cout<<"\n 0. Salir" << endl;
 	cout<<"\n opcion:  ";
@@ -63,31 +96,64 @@ int inverso (int a){
 	switch (o){
 	case 1:
 		{
+			system("cls");
 			c=numero_digitos(n);
 			cout<< "\n El numero de digitos es: "<< c;
 			break;
 		}
 	case 2:
 		{
+			system("cls");
 			d=suma_digitos(n);
 			cout<< "\n La suma de sus digitos es: "<<d;
 			break;
 		}
 	case 3:
 		{
+			system("cls");
 			e=suma_impares(n);
 			cout<< "\n La suma de sus digitos impares es: "<<e;
 			break;
 		}
 	case 4:
 		{
+			system("cls");
 			f=inverso(n);
 			cout<< "\n Su numero invertido es: "<<f;
+			break;
+		}
+	case 5:
+		{
+			system("cls");
+			cout<<"\n El numero es: "<<n;
+			cout<<"\n Agregar que numero desea concatenar: ";
+			cin>> g;
+			cout<< "\n Numero concatenado es: "<<concatenar (n,g);
+			break;
+		}
+	case 6:
+		{
+			system("cls");
+			if(primo(n)== true){
+				cout<<"\n El numero "<<n<<" es primo";
+			}else{
+				cout<<"\n El numero "<<n<<" no es primo";
+			}
+			break;
+		}
+	
+	case 7:
+		{
+			system("cls");
+			cout<<"Que numero primo quiere ver? : ";
+			cin>> h;
+			cout<<"\n El nesimo numero primo es: "<<obtPrimo (h);
 			break;
 		}
 	
 	case 0:
 		{
+			system("cls");
 			cout<<"\n Gracias por participar";
 			break;	
 		}
