@@ -1,0 +1,101 @@
+#include <iostream>
+#include <conio.h>
+#include <math.h>
+
+using namespace std;
+void cargar (int vec[],int n){
+	int i;
+	cout<<"\n Ingresar un numero para llenar vector";
+	for(i=0;i<n;i++){
+		cout<<endl;
+		cout<<" vec["<<i<<"]: ";
+		cin>> vec[i];
+	}
+}
+
+void mostrar (int vec[],int n){
+	int i;
+	for(i=0;i<n;i++){
+	cout<<"\n vec["<<vec[i]<<"]  ";
+	}
+}
+
+void invertir (int vec[],int n){
+	int i,aux;
+	for(i=0;i<(n/2);i++){
+		aux=vec[i];
+		vec[i]=vec[n-i-1];
+		vec[n-i-1]=aux;
+	}
+}
+
+bool buscar (int vec[],int n, int x){
+	int i;
+	bool k=false;
+	for(i=0;i<n;i++){
+		if (vec[i]==x){
+			k=true;
+			i=n;
+		}
+	}
+	return (k);
+}
+
+void interseccion (int vecA[],int An,int vecB[],int Bn,int vecC[], int &Cn){
+	int i;
+	Cn=0;
+	for(i=0;i<An;i++){
+		if (buscar(vecB,Bn,vecA[i])==true){
+			vecC[Cn]=vecA[i];
+			Cn++;
+		}
+	}
+}
+
+void ordenar (int vec[],int n){
+	int i,j,aux;
+	for (i=0;i<n;i++){
+		for(j=i+1;j<n;j++){
+			if(vec[i]%2!=0){
+				if(vec[j]%2!=0){
+					if(vec[i]>vec[j]){
+						aux = vec[i];
+						vec[i]=vec[j];
+						vec[j]=aux;
+					}
+				}
+			}
+		}
+	}
+}
+
+void main (){
+	int n,vecA[50],An,vecB[50],Bn,vecC[50],Cn=0,vec[50];
+	cout<<"\n Ingresar cantidad de numeros dentro el vector: ";
+	cin>> n;
+	cargar (vec,n);
+	mostrar (vec,n);
+	//cout<<"\n Ingresar cantidad de numeros dentro el vector: ";
+	//cin>> An;
+	//cargar (vecA,An);
+
+	//cout<<"\n Ingresar cantidad de numeros dentro el vector: ";
+	//cin>> Bn;
+	//cargar (vecB,Bn);
+
+	//invertir (vec,n);
+	//cout<<"\n Vector invertido";
+	//mostrar (vec,n);
+	//interseccion (vecA,An,vecB,Bn,vecC,Cn);
+	//cout<<"\n vector A";
+	//mostrar (vecA,An);
+	//cout<<"\n vector B";
+	//mostrar (vecB,Bn);
+	//cout<<"\n vector C";
+	ordenar (vec,n);
+	cout<<"\n Ordenado: ";
+	mostrar (vec,n);
+
+
+	getch ();
+}
