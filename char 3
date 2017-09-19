@@ -1,0 +1,84 @@
+#include <iostream>
+#include <conio.h>
+#include <string.h>
+
+using namespace std;
+
+bool verifVoc (char car){
+	bool k = false;
+	if ((car == 'a') || (car == 'A') || (car == 'e') || (car == 'E') || (car == 'i') || (car == 'I') || (car == 'o') || (car == 'O') ||(car == 'u') || (car == 'U')){
+		k = true;
+	}
+	return (k);
+}
+
+int contar_Vocal (char cad[]){
+	int i,n=strlen(cad),c=0;
+	for(i=0;i<n;i++){
+		if (verifVoc(cad[i])== true){
+			c++;
+		}
+	}
+	return (c);
+}
+void invertir (char cad[]){
+	int i,n=strlen(cad);
+	char aux;
+	for (i=0;i<n/2;i++){
+		aux = cad[i];
+		cad[i] = cad[n-1-i];
+		cad[n-1-i] = aux;
+	}
+}
+
+bool palindromo (char cad[]){
+	char aux[80];
+	bool k=false;
+	strcpy (aux,cad);
+	invertir (aux);
+	if (strcmp(cad,aux)==0){
+		k = true;
+	}
+	return (k);
+
+}
+
+
+//realizar una funcion que tenga dos parametros (cad de caracteres,un numero entero(ancho)). Lafuncion deberia colocar la cadena en el medio de de la longitud
+//establecida por ancho rellenando con asteriscos la parte izquierda y derecha
+void aumentar (char cad[], int n){
+	int m=strlen(cad),a,b,c,i,j;
+		a= n-m;
+		b= a/2;
+	for(i=0;i<b;i++){
+		cout<<"*";
+	}
+	cout<<cad;
+		c=a-b;
+	for(j=0;j<c;j++){
+		cout<<"*";
+	}
+}
+void main (){
+	int n,m;
+	char cad[80];
+
+	cout<<"\n Ingrese cadena:  ";
+	gets(cad);
+	cout<<"\Ingrese tamaño de la cadena: ";
+	cin>> n;
+	m=strlen(cad);
+	if (n>m){
+		aumentar (cad,n);
+	}else{
+		cout<<cad;
+	}
+	//cout<<"\n La cadena invertida es: "<<cad;
+	//if (palindromo (cad)== true){
+		//cout<<"\n La cadena es palindromo";
+	//}else{
+		//cout<<"\n La cadena no es palindromo";
+	//}
+	//cout<<"\n La cantidad de vocales es: "<<contar_Vocal(cad);
+	getch();
+}
