@@ -1,0 +1,145 @@
+#include <iostream>
+#include <conio.h>
+#include <stdlib.h>
+#define FIL 50
+#define COL 50
+
+struct tmatriz{
+	int vec[50];
+	int nvec;
+
+};
+using namespace std;
+
+
+
+void cargar (tmatriz mat[FIL][COL], int n){
+	int i,j,k;
+	cout<<"\n Ingresar numero en posicion: ";
+	for (i=0;i<n;i++){
+		for (j=0;j<n;j++){
+			for (k=0;k<n;k++){
+				cout<<"\n FIL["<<i<<"]COL["<<j<<"] posicion ["<<k<<"]:";
+				cin>>mat[i][j].vec[k];
+			}
+		}
+	}
+}
+void cargar2 (tmatriz mat[FIL][COL], int n){
+	int i,j,k,c=1;
+	cout<<"\n Ingresar numero en posicion: ";
+	for (i=0;i<n;i++){
+		for (j=0;j<n;j++){
+			for (k=0;k<n;k++){
+				mat[j][i].vec[k] = c;
+				c++;
+			}
+		}
+	}
+}
+void cargar3 (tmatriz mat[FIL][COL], int n){
+	int i,j,k,c=1;
+	cout<<"\n Ingresar numero en posicion: ";
+	for (i=0;i<n;i++){
+		for (j=0;j<n;j++){
+			for (k=0;k<n;k++){
+				mat[k][i].vec[j] = c;
+				c++;
+			}
+		}
+	}
+}
+void cargar4 (tmatriz mat[FIL][COL], int n, int m){
+	int i,j,k,o=1;
+	for (i=0;i<n;i++){
+		for (j=0;j<m;j++){
+			mat[i][j].nvec=rand()% 5 +1;
+			for (k=0;k<mat[i][j].nvec;k++){
+				mat[i][j].vec[k]=rand()%20+1;
+			}
+		}
+	}
+}
+
+void mostrar (tmatriz mat[FIL][COL], int n){
+	int i,j,k;
+	for (i=0;i<n;i++){
+		for (j=0;j<n;j++){
+			for (k=0;k<n;k++){
+				cout<<"\t"<<mat[i][j].vec[k];
+			}cout<<"      |";
+		}
+		cout<<endl;
+		cout<<"\t-----------------------------------------------------------------------------------------";
+		cout<<endl;
+	}
+}
+void mostrar2 (tmatriz mat[FIL][COL], int n, int m){
+	int i,j,k;
+	for (i=0;i<n;i++){
+		for (j=0;j<m;j++){
+			for (k=0;k<mat[i][j].nvec;k++){
+				cout.width(6);
+				cout<<mat[i][j].vec[k]<<" ";
+			}
+			cout<<"|";
+		}
+		cout<<endl;
+	}
+}
+
+bool verif_primo (int n){
+	int i;
+	bool k=true;
+	for(i=2;i<n-1;i++)
+		if (n%i == 0){
+			k =false;
+		}
+		return (k);
+}
+
+void eliminar_primos (tmatriz mat[FIL][COL], int &n, int m){
+	int i,j,l,s,t;
+	bool k=false;
+	for(i=0;i<n;i++){
+		for(j=0;j<m;j++){
+			for(k=0;k<mat[i][j].nvec;k++){
+				if(verif_primo(mat[i][j].vec[k] == true)){
+					k =true;
+					j=m;
+				}
+			}
+		}
+		if (k==true){
+			for (l=i;l<n-1;l++){
+				for (s=j;s<m;s++){
+					for(t=k;t<mat[i][j].nvec;t++){
+						mat[l][s].vec[t]=mat[l+1][s].vec[t];
+					}
+				}
+				k=false;
+				n--;
+				i--;
+			}
+		}
+	}
+}
+
+
+void main (){
+	int n,m;
+	tmatriz mat[FIL][COL];
+	cout<<"\n Ingresar tamaño de matriz: ";
+	cout<<"\n Fila: ";
+	cin>> n;
+	cout<<"\n Columna: ";
+	cin>> m;
+	cargar4 (mat,n,m);
+	cout<<"\n Matriz"<<endl;
+	cout<<endl;
+	mostrar2 (mat,n,m);
+	cout<<"\n Matriz eliminada"<<endl;
+	eliminar_primos (mat,n,m);
+	mostrar2 (mat,n,m);
+	getch();
+}
