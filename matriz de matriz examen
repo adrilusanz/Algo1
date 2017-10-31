@@ -1,0 +1,116 @@
+#include <iostream>
+#include <conio.h>
+#define FIL 10
+#define COL 10
+
+using namespace std;
+
+struct matriz{
+	int smat[FIL][COL];
+	int nFila;
+	int nColumna;
+};
+
+struct vector{
+	int svector[10];
+};
+
+
+void cargar (matriz mat[FIL][COL], int n, int m){
+	int i,j,k,l,f=1000;
+	for (i=0;i<n;i++){
+		for(j=0;j<m;j++){
+			cout<<"\n Ingresar tamaño de fila de la subMatriz ["<<i<<"]["<<j<<"]: ";
+			cin>>mat[i][j].nFila;
+			cout<<"\n Ingresar tamaño de columna de la subMatriz ["<<i<<"]["<<j<<"]: ";
+			cin>> mat[i][j].nColumna;
+			for (k=0;k<mat[i][j].nFila;k++){
+				for(l=0;l<mat[i][j].nColumna;l++){
+					mat[i][j].smat[k][l] = f;
+					f = f -35;
+				}
+			}
+		}
+	}
+}
+void mostrar (matriz mat[FIL][COL], int n, int m){
+	int i,j,k,l;
+	for (i=0;i<n;i++){
+		for(j=0;j<m;j++){
+			for (k=0;k<mat[i][j].nFila;k++){
+				for(l=0;l<mat[i][j].nColumna;l++){
+					cout<<mat[i][j].smat[k][l]<<"-----";
+				}
+			}
+			cout<<"*****"<<endl;
+		}
+		cout<<"/////"<<endl;
+	}
+}
+void mostrar_vector (vector vec[],int n){
+	int i,j;
+	for(i=0;i<n;i++){
+		for(j=0;j<n;j++){
+		cout<<vec[i].svector[j]<<"***";
+		}
+	}
+}
+void matriz_a_vector (matriz mat[FIL][COL],vector vec[], int n, int m){
+	int i,j,k,l,s,o;
+		for (i=0;i<n;i++){
+			for(j=0;j<m;j++){
+				
+						for (k=0;k<mat[i][j].nFila;k++){
+							for(l=0;l<mat[i][j].nColumna;l++){
+								for(s=0;s<n*m;s++){
+					for(o=0;o<4;o++){
+								if ((k==0) && (l==0)){
+									vec[s].svector[o] = mat[i][j].smat[k][l];
+								}
+									if ((k==0) && (l==mat[i][j].nColumna-1)){
+										vec[s].svector[o]= mat[i][j].smat[k][l];
+									}
+										if ((k==mat[i][j].nFila-1) && (l==0)){
+											vec[s].svector[o] = mat[i][j].smat[k][l];
+										}
+											if ((k==mat[i][j].nFila-1) && (l==mat[i][j].nColumna-1)){
+												vec[s].svector[o]= mat[i][j].smat[k][l];
+											}
+							}
+						}
+					}
+				}
+			}
+		}
+}
+
+void ordenar (int vec[], int n){
+	int i,j,aux;
+	for(i=0;i<n;i++){
+		for(j=0;j<n;j++){
+			if(vec[i] > vec [j]){
+				aux = vec[i];
+				vec[i] = vec[j];
+				vec[j] = aux;
+			}
+		}
+	}
+}
+
+//void vector_a_matriz 
+
+
+void main(){
+	matriz mat[10][10];
+	vector vec[10];
+	int n,m;
+	cout<<"\n Ingresar numero de filas: ";
+	cin>> n;
+	cout<<"\n Ingresar numero de columnas: ";
+	cin>> m;
+	cargar (mat,n,m);
+	mostrar (mat,n,m);
+	matriz_a_vector (mat,vec,n,m);
+	mostrar_vector (vec,n);
+	getch();
+}          
