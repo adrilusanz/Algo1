@@ -1,0 +1,87 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+
+using namespace std;
+struct polinomio{
+	int exponente;
+	int coeficiente;
+};
+
+void cargar_polinomio (polinomio poli[], int n){
+	int i;
+	for(i=0;i<n;i++){
+		cout<<"\n Ingresar valor del coeficiente: ";
+		cin>> poli[i].coeficiente;
+		cout<<"\n Ingresar valor del exponente: ";
+		cin>> poli[i].exponente;
+	}
+}
+void mostrar_polinomio (polinomio poli[], int n){
+	int i;
+	for(i=0;i<n;i++){
+		cout<< poli[i].coeficiente<<"x^"<<poli[i].exponente<<"+";
+	}
+}
+int resolver_polinomio (polinomio poli[], int n, int x){
+	int i, s=0;
+	for(i=0;i<n;i++){
+		s= s + poli[i].coeficiente*powf(x,poli[i].exponente);
+	}
+	return (s);
+}
+
+void suma (polinomio vec[],int a, polinomio vec2[],int b, polinomio vec3[],int &c){
+	int i,j;
+	for(i=0;i<a;i++){
+			vec3[i].coeficiente = 0;
+		vec3[i].exponente = 0;
+		for(j=0;j<b;j++){
+			if(vec[i].exponente > vec2[j].exponente){
+				vec3[c].coeficiente = vec[i].coeficiente;
+				vec3[c].exponente = vec[i].exponente;
+				c++;
+			}else{
+				if(vec[i].exponente == vec2[j].exponente){
+					vec3[i].coeficiente = vec[i].coeficiente + vec2[j].coeficiente;
+					vec3[i].exponente = vec[i].exponente;
+					c++;
+				}else{
+					if(vec[i].exponente < vec2[j].exponente){
+					vec3[i].coeficiente =  vec2[j].coeficiente;
+					vec3[i].exponente = vec[i].exponente;
+					c++;
+					}
+				}
+			}
+		}
+	}
+}
+
+void main(){
+	int a,b,c=0,x;
+	polinomio vec[20],vec2[20],vec3[20];
+	//cout<<"\n Ingresar numero de terminos del polinomio: ";
+	//cin>> n;
+	cout<<"\n Ingresar valor de X: ";
+	cin>> x;
+	//cargar_polinomio(vec,n);
+	//s = resolver_polinomio (vec,n,x);
+	//mostrar_polinomio(vec,n);
+	//cout<<s;
+	cout<<"\n Ingresar numero de terminos del polinomio A: ";
+	cin>> a;
+	cargar_polinomio(vec,a);
+	cout<<"\n Ingresar numero de terminos del polinomio B: ";
+	cin>> b;
+	cargar_polinomio(vec2,b);
+	cout<<"\n Polinomio A: ";
+	mostrar_polinomio(vec,a);
+	cout<<"\n Polinomio B: ";
+	mostrar_polinomio(vec2,b);
+	suma (vec,a,vec2,b,vec3,c);
+	cout<<"\n Suma: ";
+	mostrar_polinomio(vec3,c);
+
+	getch();
+}
